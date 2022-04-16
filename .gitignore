@@ -2,6 +2,7 @@
 .DS_Store
 .github/github_deploy_key.enc
 .idea
+.vscode
 build
 cmake-build-debug/
 cmake-build-release/

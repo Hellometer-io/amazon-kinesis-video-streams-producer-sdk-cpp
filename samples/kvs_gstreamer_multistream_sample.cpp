@@ -29,7 +29,7 @@ LOGGER_TAG("com.amazonaws.kinesis.video.gstreamer");
  * https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
  */
 #define MAX_URL_LENGTH 65536
-#define DEFAULT_RETENTION_PERIOD_DAYS 90
+#define DEFAULT_RETENTION_PERIOD_HOURS 90 * 24
 #define DEFAULT_KMS_KEY_ID ""
 #define DEFAULT_STREAMING_TYPE STREAMING_TYPE_REALTIME
 #define DEFAULT_CONTENT_TYPE "video/h264"
@@ -335,7 +335,7 @@ void kinesis_stream_init(string stream_name, CustomData *data, string stream_han
     /* create a test stream */
     unique_ptr<StreamDefinition> stream_definition(new StreamDefinition(
         stream_name.c_str(),
-        days(DEFAULT_RETENTION_PERIOD_DAYS),
+        hours(DEFAULT_RETENTION_PERIOD_HOURS),
         nullptr,
         DEFAULT_KMS_KEY_ID,
         DEFAULT_STREAMING_TYPE,
