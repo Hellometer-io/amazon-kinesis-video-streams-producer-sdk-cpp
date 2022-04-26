@@ -32,7 +32,7 @@ LOGGER_TAG("com.amazonaws.kinesis.video.gstreamer");
 #define DEFAULT_RETENTION_PERIOD_HOURS 90 * 24
 #define DEFAULT_KMS_KEY_ID ""
 #define DEFAULT_STREAMING_TYPE STREAMING_TYPE_REALTIME
-#define DEFAULT_CONTENT_TYPE "video/h265"
+#define DEFAULT_CONTENT_TYPE "video/h264"
 #define DEFAULT_MAX_LATENCY_SECONDS 60
 #define DEFAULT_FRAGMENT_DURATION_MILLISECONDS 2000
 #define DEFAULT_TIMECODE_SCALE_MILLISECONDS 1
@@ -47,7 +47,7 @@ LOGGER_TAG("com.amazonaws.kinesis.video.gstreamer");
 #define DEFAULT_BUFFER_DURATION_SECONDS 120
 #define DEFAULT_REPLAY_DURATION_SECONDS 40
 #define DEFAULT_CONNECTION_STALENESS_SECONDS 60
-#define DEFAULT_CODEC_ID "V_MPEGH/ISO/HEVC"
+#define DEFAULT_CODEC_ID "V_MPEG4/ISO/AVC"
 #define DEFAULT_TRACKNAME "kinesis_video"
 #define APP_SINK_BASE_NAME "appsink"
 #define DEFAULT_BUFFER_SIZE (1 * 1024 * 1024)
@@ -437,22 +437,22 @@ int gstreamer_init(int argc, char *argv[]) {
         GstElement *appsink, *depay, *source, *filter, *pipeline;
 
         appsink = gst_element_factory_make("appsink", appsink_name.c_str());
-        depay = gst_element_factory_make("rtph265depay", "depay");
+        depay = gst_element_factory_make("rtph264depay", "depay");
         source = gst_element_factory_make("rtspsrc", "source");
         filter = gst_element_factory_make("capsfilter", "encoder_filter");
-        GstCaps *h265_caps = gst_caps_new_simple("video/x-h265",
+        GstCaps *h264_caps = gst_caps_new_simple("video/x-h264",
                                                  "stream-format", G_TYPE_STRING, "hevc",
                                                  "alignment", G_TYPE_STRING, "au",
                                                  NULL);
-        g_object_set(G_OBJECT (filter), "caps", h265_caps, NULL);
-        gst_caps_unref(h265_caps);
+        g_object_set(G_OBJECT (filter), "caps", h264_caps, NULL);
+        gst_caps_unref(h264_caps);
         pipeline = gst_pipeline_new("rtsp-kinesis-pipeline");
 
         if (!pipeline || !source || !depay  || !appsink) {
             g_printerr("Not all elements could be created:\n");
             if (!pipeline) g_printerr("\tCore pipeline\n");
             if (!source) g_printerr("\trtspsrc (gst-plugins-good)\n");
-            if (!depay) g_printerr("\trtph265depay (gst-plugins-good)\n");
+            if (!depay) g_printerr("\trtph264depay (gst-plugins-good)\n");
             if (!appsink) g_printerr("\tappsink (gst-plugins-base)\n");
             return 1;
         }
