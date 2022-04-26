@@ -441,7 +441,7 @@ int gstreamer_init(int argc, char *argv[]) {
         source = gst_element_factory_make("rtspsrc", "source");
         filter = gst_element_factory_make("capsfilter", "encoder_filter");
         GstCaps *h264_caps = gst_caps_new_simple("video/x-h264",
-                                                 "stream-format", G_TYPE_STRING, "hevc",
+                                                 "stream-format", G_TYPE_STRING, "avc",
                                                  "alignment", G_TYPE_STRING, "au",
                                                  NULL);
         g_object_set(G_OBJECT (filter), "caps", h264_caps, NULL);
