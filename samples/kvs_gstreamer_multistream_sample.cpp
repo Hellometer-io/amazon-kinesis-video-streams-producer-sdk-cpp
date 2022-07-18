@@ -29,7 +29,7 @@ LOGGER_TAG("com.amazonaws.kinesis.video.gstreamer");
  * https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
  */
 #define MAX_URL_LENGTH 65536
-#define DEFAULT_RETENTION_PERIOD_HOURS 60 * 24
+#define DEFAULT_RETENTION_PERIOD_HOURS 30 * 24
 #define DEFAULT_KMS_KEY_ID ""
 #define DEFAULT_STREAMING_TYPE STREAMING_TYPE_REALTIME
 #define DEFAULT_CONTENT_TYPE "video/h264"
