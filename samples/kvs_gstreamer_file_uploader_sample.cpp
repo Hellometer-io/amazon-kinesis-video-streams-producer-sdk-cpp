@@ -17,7 +17,7 @@ int gstreamer_init(int, char **);
 #endif
 
 #define DEFAULT_RETRY_COUNT       3
-#define DEFAULT_STREAMING_TYPE    "offline"
+#define DEFAULT_STREAMING_TYPE    "realtime"
 
 #define PROPERTY_PREFIX           "KVS_"
 #define PROPERTY_KEY_MAX_LEN      32
