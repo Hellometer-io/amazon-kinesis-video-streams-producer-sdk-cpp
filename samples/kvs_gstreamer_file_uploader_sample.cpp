@@ -173,8 +173,7 @@ string build_kvssink_str(string stream_name, unsigned long file_start_time) {
        << " stream-name=" << stream_name
        << " streaming-type=" DEFAULT_STREAMING_TYPE  
        << " file-start-time=" << file_start_time
-       << " key-frame-fragmentation=" << false
-       << " frame-timecodes=" << false;
+       << " key-frame-fragmentation=" << false;
     for (property = AVAILABLE_PROPERTIES; *property != NULL; property += 2) {
         key_raw = property[0];
         value = getenv(key_raw);
