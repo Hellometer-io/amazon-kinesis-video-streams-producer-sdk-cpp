@@ -19,6 +19,8 @@ int gstreamer_init(int, char **);
 #define DEFAULT_RETRY_COUNT       3
 #define DEFAULT_STREAMING_TYPE    "realtime"
 
+#define DEFAULT_FRAGMENT_DURATION_MILLISECONDS 9000
+
 #define PROPERTY_PREFIX           "KVS_"
 #define PROPERTY_KEY_MAX_LEN      32
 #define KVS_SINK_PLUGIN_NAME      "kvssink"
@@ -38,7 +40,6 @@ int gstreamer_init(int, char **);
 static const char* AVAILABLE_PROPERTIES[] = {
   PROPERTY_PREFIX "IOT_CERTIFICATE", "Use aws iot certificate to obtain credentials",
   PROPERTY_PREFIX "RETENTION_PERIOD", "Length of time stream is preserved. Unit: hours",
-  PROPERTY_PREFIX "FRAGMENT_DURATION", "The fragment duration that you want. Unit: Milliseconds",
   PROPERTY_PREFIX "STORAGE_SIZE", "Storage Size. Unit: MB",
   NULL
 };
@@ -174,6 +175,7 @@ string build_kvssink_str(string stream_name, unsigned long file_start_time) {
        << " streaming-type=" DEFAULT_STREAMING_TYPE  
        << " file-start-time=" << file_start_time
        << " key-frame-fragmentation=" << false
+       << " fragment-duration=" << DEFAULT_FRAGMENT_DURATION_MILLISECONDS
        << " frame-timecodes=" << false;
     for (property = AVAILABLE_PROPERTIES; *property != NULL; property += 2) {
         key_raw = property[0];
